@@ -6,6 +6,7 @@ import vikeSolid from "vike-solid/vite";
 import vike from "vike/plugin";
 
 // Vite
+import tailwindcss from "@tailwindcss/vite";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
@@ -16,7 +17,7 @@ const root = resolve(__dirname, ".");
 export default defineConfig({
   plugins: [
     devServer({
-      entry: "server.ts",
+      entry: "./src/server/server.ts",
 
       exclude: [
         /^\/@.+$/,
@@ -32,6 +33,7 @@ export default defineConfig({
     }),
     vike({}),
     vikeSolid(),
+    tailwindcss(),
   ],
   server: {
     port: 3000,
@@ -41,7 +43,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@": resolve(root),
+      "@": resolve(root, "src"),
     },
   },
 });
