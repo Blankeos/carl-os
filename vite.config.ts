@@ -1,23 +1,23 @@
 // Hono
-import devServer from "@hono/vite-dev-server";
+import devServer from '@hono/vite-dev-server';
 
 // Vike
-import vikeSolid from "vike-solid/vite";
-import vike from "vike/plugin";
+import vikeSolid from 'vike-solid/vite';
+import vike from 'vike/plugin';
 
 // Vite
-import tailwindcss from "@tailwindcss/vite";
-import { dirname, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
-import { defineConfig } from "vite";
+import tailwindcss from '@tailwindcss/vite';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { defineConfig } from 'vite';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const root = resolve(__dirname, ".");
+const root = resolve(__dirname, '.');
 
 export default defineConfig({
   plugins: [
     devServer({
-      entry: "./src/server/server.ts",
+      entry: './src/server/server.ts',
 
       exclude: [
         /^\/@.+$/,
@@ -31,7 +31,7 @@ export default defineConfig({
 
       injectClientScript: false,
     }),
-    vike({}),
+    vike({ prerender: true }),
     vikeSolid(),
     tailwindcss(),
   ],
@@ -43,7 +43,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@": resolve(root, "src"),
+      '@': resolve(root, 'src'),
     },
   },
 });
