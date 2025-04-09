@@ -1,6 +1,8 @@
+import ProblemRenderer from '@/components/problem-renderer';
 import { useFlexSearch } from '@/hooks/use-flex-search';
 import { Tippy } from '@/lib/solid-tippy';
 import getTitle from '@/utils/get-title';
+import parseMathProblem from '@/utils/parse-mathproblem';
 import { useHotkeys, useOs } from 'bagon-hooks';
 import { For, createEffect, createMemo, createSignal } from 'solid-js';
 import { useMetadata } from 'vike-metadata-solid';
@@ -70,7 +72,7 @@ export default function Page() {
       tags: [],
       description: 'Domain-ifies an IP address using traefik and nipio.',
       onClick() {
-        window.open('https://');
+        window.open('https://domainify-ip.pages.dev');
       },
     },
     // {
@@ -131,6 +133,20 @@ export default function Page() {
       category: categoryName,
       results: source.filter((app) => app.category === categoryName),
     }));
+  });
+
+  const parsedProblem = createMemo(() => {
+    try {
+      if (query()) {
+        return parseMathProblem(query());
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        return null;
+      }
+    }
+
+    return null;
   });
 
   return (
@@ -197,6 +213,10 @@ export default function Page() {
               {os() === 'macos' ? '⌘K' : 'Ctrl+K'}
             </div>
           </div>
+        </div>
+
+        <div class="flex justify-center">
+          <ProblemRenderer parsedProblem={parsedProblem()} />
         </div>
 
         <div class="gap-y-12 text-neutral-400">
