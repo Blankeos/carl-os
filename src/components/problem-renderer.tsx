@@ -1,5 +1,5 @@
 import { ParsedProblem } from '@/utils/parse-mathproblem';
-import { mergeProps, Show, VoidProps } from 'solid-js';
+import { createMemo, createSignal, Match, mergeProps, Show, Switch, VoidProps } from 'solid-js';
 
 type ProblemRendererProps = {
   parsedProblem: ParsedProblem | null;
@@ -7,6 +7,9 @@ type ProblemRendererProps = {
 
 export default function ProblemRenderer(props: VoidProps<ProblemRendererProps>) {
   const defaultProps = mergeProps({ parsedProblem: null }, props);
+
+  const [showMoreDecimals, setShowMoreDecimals] = createSignal(false);
+  const hasDecimals = createMemo(() => Boolean(defaultProps.parsedProblem?.result?.shortLabel));
 
   return (
     <Show when={defaultProps.parsedProblem !== null}>
@@ -42,11 +45,33 @@ export default function ProblemRenderer(props: VoidProps<ProblemRendererProps>) 
 
         <div class="flex w-full flex-col items-center rounded-xl border border-indigo-200 bg-gradient-to-br from-indigo-50 to-indigo-100 p-5 shadow-md transition-all hover:shadow-lg sm:w-auto dark:border-indigo-800 dark:from-indigo-900 dark:to-indigo-950">
           <div class="mb-2 font-mono text-xl text-slate-800 dark:text-slate-200">
-            {defaultProps.parsedProblem?.result.value}
+            <Switch>
+              <Match when={!hasDecimals()}>{defaultProps.parsedProblem?.result.value}</Match>
+              <Match when={showMoreDecimals()}>{defaultProps.parsedProblem?.result.value}</Match>
+              <Match when={!showMoreDecimals()}>
+                {Number(defaultProps.parsedProblem?.result.value).toLocaleString(undefined, {
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 2,
+                })}
+              </Match>
+            </Switch>
           </div>
           <div class="text-sm font-medium text-indigo-600 dark:text-indigo-300">
-            {defaultProps.parsedProblem?.result.label}
+            <Show
+              when={hasDecimals() && !showMoreDecimals()}
+              fallback={defaultProps.parsedProblem?.result.label}
+            >
+              {defaultProps.parsedProblem?.result.shortLabel}
+            </Show>
           </div>
+          <Show when={hasDecimals()}>
+            <button
+              class="mt-2 text-xs text-indigo-500 hover:text-indigo-600 dark:text-indigo-400 dark:hover:text-indigo-300"
+              onClick={() => setShowMoreDecimals(!showMoreDecimals())}
+            >
+              {showMoreDecimals() ? 'Show fewer decimals' : 'Show more decimals'}
+            </button>
+          </Show>
         </div>
       </div>
     </Show>

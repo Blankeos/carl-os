@@ -14,6 +14,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const root = resolve(__dirname, '.');
 
+// Icons
+import solidSvg from 'vite-plugin-solid-svg';
+
 export default defineConfig({
   plugins: [
     devServer({
@@ -34,6 +37,7 @@ export default defineConfig({
     vike({ prerender: true }),
     vikeSolid(),
     tailwindcss(),
+    solidSvg({ defaultAsComponent: false }),
   ],
   server: {
     port: 3000,
