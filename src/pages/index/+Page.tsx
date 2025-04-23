@@ -112,6 +112,26 @@ export default function Page() {
         window.open('https://vscode-to-zed-snippets.pages.dev/', '_blank');
       },
     },
+    {
+      name: 'Tailwind Color Generator',
+      icon: '🎨',
+      category: 'Third-Party',
+      tags: ['tailwind', 'colors'],
+      description: 'Generate color variants from your root color.',
+      onClick() {
+        window.open('https://uicolors.app/generate/dda440', '_blank');
+      },
+    },
+    {
+      name: 'Aceternity Box Shadow Tool',
+      icon: '🎨',
+      category: 'Third-Party',
+      tags: ['tailwind', 'colors'],
+      description: 'Box Shadow Generator for TailwindCSS.',
+      onClick() {
+        window.open('https://ui.aceternity.com/tools/box-shadows', '_blank');
+      },
+    },
   ];
 
   const { query, onSearch, results } = useFlexSearch(apps, {
@@ -219,7 +239,7 @@ export default function Page() {
           <ProblemRenderer parsedProblem={parsedProblem()} />
         </div>
 
-        <div class="gap-y-12 text-neutral-400">
+        <div class="flex flex-col gap-y-12 text-neutral-400">
           <For
             each={categories()}
             fallback={
