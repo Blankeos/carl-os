@@ -132,6 +132,66 @@ export default function Page() {
         window.open('https://ui.aceternity.com/tools/box-shadows', '_blank');
       },
     },
+    {
+      name: 'Squoosh',
+      icon: '🖼️',
+      category: 'Design',
+      tags: ['images', 'optimization', 'compression'],
+      description: 'Compress and optimize images right in your browser.',
+      onClick() {
+        window.open('https://squoosh.app', '_blank');
+      },
+    },
+    {
+      name: 'Figma',
+      icon: '🎨',
+      category: 'Design',
+      tags: ['design', 'prototyping', 'collaboration'],
+      description: 'Collaborative design tool for UI/UX and prototyping.',
+      onClick() {
+        window.open('https://figma.com/files', '_blank');
+      },
+    },
+    {
+      name: 'Figma Community',
+      icon: '🏘️',
+      category: 'Design',
+      tags: ['templates', 'designs', 'mockups', 'community'],
+      description: 'Discover and use design templates, mockups, and community designs.',
+      onClick() {
+        window.open('https://www.figma.com/community', '_blank');
+      },
+    },
+    {
+      name: 'Get Waves',
+      icon: '🌊',
+      category: 'Design',
+      tags: ['waves', 'svg', 'backgrounds', 'shapes'],
+      description: 'Generate beautiful SVG waves for your designs.',
+      onClick() {
+        window.open('https://getwaves.io', '_blank');
+      },
+    },
+    {
+      name: 'Blobmaker',
+      icon: '🔵',
+      category: 'Design',
+      tags: ['blobs', 'shapes', 'organic', 'svg'],
+      description: 'Create organic blob shapes for your designs.',
+      onClick() {
+        window.open('https://www.blobmaker.app', '_blank');
+      },
+    },
+    {
+      name: 'CSS Gradient',
+      icon: '🎨',
+      category: 'Design',
+      tags: ['gradients', 'css', 'backgrounds', 'colors'],
+      description: 'Generate beautiful CSS gradients for your designs.',
+      onClick() {
+        window.open('https://cssgradient.io', '_blank');
+      },
+    },
   ];
 
   const { query, onSearch, results } = useFlexSearch(apps, {
